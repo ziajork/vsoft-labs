@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-    name: todo-api
+    name: todo
     labels:
-        app: todo-api
+        app: todo
 spec:
-    replicas: 3
+    replicas: 1
     selector:
         matchLabels:
-            app: todo-api
+            app: todo
     template:
         metadata:
             labels:
-                app: todo-api
+                app: todo
         spec:
             containers:
-                - name: todo-api
-                  image: your-docker-repo/todo-api:latest
+                - name: todo
+                  image: vsofttodo00.azurecr.io/todo:v1
                   ports:
-                      - containerPort: 80
+                      - containerPort: 8080
                   env:
-                      - name: ConnectionStrings__DefaultConnection
-                        value: "YourConnectionStringHere"
+                      - name: "ASPNETCORE_ENVIRONMENT"
+                        value: "Development"
