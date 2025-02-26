@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: todo-api
+    labels:
+        app: todo-api
+spec:
+    replicas: 3
+    selector:
+        matchLabels:
+            app: todo-api
+    template:
+        metadata:
+            labels:
+                app: todo-api
+        spec:
+            containers:
+                - name: todo-api
+                  image: your-docker-repo/todo-api:latest
+                  ports:
+                      - containerPort: 80
+                  env:
+                      - name: ConnectionStrings__DefaultConnection
+                        value: "YourConnectionStringHere"
