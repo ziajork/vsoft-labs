@@ -3,7 +3,8 @@ using NSwag.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<TodoDb>(opt => opt.UseInMemoryDatabase("TodoList"));
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<TodoDb>(opt => opt.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddEndpointsApiExplorer();
@@ -49,7 +50,8 @@ static async Task<IResult> GetAllTodos(TodoDb db)
 }
 // </snippet_getalltodos>
 
-static async Task<IResult> GetCompleteTodos(TodoDb db) {
+static async Task<IResult> GetCompleteTodos(TodoDb db)
+{
     return TypedResults.Ok(await db.Todos.Where(t => t.IsComplete).Select(x => new TodoItemDTO(x)).ToListAsync());
 }
 
