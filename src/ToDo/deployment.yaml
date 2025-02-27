@@ -26,5 +26,7 @@ spec:
             - name: "ASPNETCORE_ENVIRONMENT"
               value: "Development"
             - name: APPLICATIONINSIGHTS_CONNECTION_STRING
-              value: "InstrumentationKey=7ce2b1c4-0aa7-4818-aada-4c32f5cfe831;IngestionEndpoint=https://polandcentral-0.in.applicationinsights.azure.com/;LiveEndpoint=https://polandcentral.livediagnostics.monitor.azure.com/;ApplicationId=cac3a7dc-c20b-4b4b-aadf-70e755a4ec39"  
+              value: "InstrumentationKey=7ce2b1c4-0aa7-4818-aada-4c32f5cfe831;IngestionEndpoint=https://polandcentral-0.in.applicationinsights.azure.com/;LiveEndpoint=https://polandcentral.livediagnostics.monitor.azure.com/;ApplicationId=cac3a7dc-c20b-4b4b-aadf-70e755a4ec39"
+            - name: KeyVaultName
+              value: "kv-vsoft-team00-todo"
           resources: {}
