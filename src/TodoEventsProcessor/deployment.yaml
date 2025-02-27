@@ -3,7 +3,6 @@ kind: Deployment
 metadata:
   name: todo-events-processor
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: todo-events-processor
@@ -24,3 +23,39 @@ spec:
           value: "vsoftteam00todostorage"
         - name: APPLICATIONINSIGHTS_CONNECTION_STRING
           value: "InstrumentationKey=7ce2b1c4-0aa7-4818-aada-4c32f5cfe831;IngestionEndpoint=https://polandcentral-0.in.applicationinsights.azure.com/;LiveEndpoint=https://polandcentral.livediagnostics.monitor.azure.com/;ApplicationId=cac3a7dc-c20b-4b4b-aadf-70e755a4ec39"
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+---
+apiVersion: keda.sh/v1alpha1
+kind: TriggerAuthentication
+metadata:
+  name: servicebus-trigger-auth
+spec:
+  secretTargetRef:
+  - parameter: connection
+    name: servicebus-secret  # Nazwa secretu
+    key: connection          # Klucz w secrecie
+---
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: todo-worker-scaler
+spec:
+  scaleTargetRef:
+    name: todo-events-processor
+  minReplicaCount: 0
+  maxReplicaCount: 10
+  pollingInterval: 5
+  cooldownPeriod: 30
+  triggers:
+  - type: azure-servicebus
+    metadata:
+      queueName: todoevents
+      messageCount: "5"
+    authenticationRef:
+      name: servicebus-trigger-auth  # Odwołanie do TriggerAuthentication

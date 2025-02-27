@@ -6,7 +6,6 @@ metadata:
   labels:
     app: todo
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: todo
@@ -29,4 +28,27 @@ spec:
               value: "InstrumentationKey=7ce2b1c4-0aa7-4818-aada-4c32f5cfe831;IngestionEndpoint=https://polandcentral-0.in.applicationinsights.azure.com/;LiveEndpoint=https://polandcentral.livediagnostics.monitor.azure.com/;ApplicationId=cac3a7dc-c20b-4b4b-aadf-70e755a4ec39"
             - name: KeyVaultName
               value: "kv-vsoft-team00-todo"
-          resources: {}
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"
+---
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: todo-api-scaler
+spec:
+  scaleTargetRef:
+    name: todo-app
+  minReplicaCount: 1  # API zawsze musi mieć minimum jedną instancję
+  maxReplicaCount: 10
+  pollingInterval: 15
+  cooldownPeriod: 60
+  triggers:
+  - type: cpu
+    metadata:
+      type: Utilization
+      value: "60"  # Skaluj gdy średnie użycie CPU przekracza 60%
