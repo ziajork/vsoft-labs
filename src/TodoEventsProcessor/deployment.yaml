@@ -11,11 +11,12 @@ spec:
     metadata:
       labels:
         app: todo-events-processor
+        azure.workload.identity/use: "true"
     spec:
-      serviceAccountName: todo-app-sa  # Używamy istniejącego Service Account
+      serviceAccountName: todo  # Używamy istniejącego Service Account
       containers:
       - name: todo-events-processor
-        image: vsofttodo00.azurecr.io/todo-worker-app/todo-worker:abc
+        image: vsofttodo00.azurecr.io/todo-worker-app/todo-worker:63f2898c1c2fa28d39b0b2a16c83370215fb8ed2
         env:
         - name: KeyVaultName
           value: "kv-vsoft-team00-todo"
