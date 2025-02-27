@@ -53,5 +53,5 @@ jobs:
           manifests: |
              src/ToDo/deployment.yaml
              src/ToDo/service.yaml
-          images: '${{ secrets.REGISTRY }}.azurecr.io/todo-app:${{ github.sha }}'
+          images: '${{ secrets.REGISTRY }}.azurecr.io/todo-app/todo:${{ github.sha }}'
           pull-images: false
