@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-events-processor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todo-events-processor
+  template:
+    metadata:
+      labels:
+        app: todo-events-processor
+    spec:
+      serviceAccountName: todo-app-sa  # Używamy istniejącego Service Account
+      containers:
+      - name: todo-events-processor
+        image: vsofttodo00.azurecr.io/todo-events-processor:latest
+        env:
+        - name: KeyVaultName
+          value: "kv-vsoft-team00-todo"
+        - name: StorageAccountName
+          value: "vsoftteam00todostorage"
+        - name: APPLICATIONINSIGHTS_CONNECTION_STRING
+          value: "InstrumentationKey=7ce2b1c4-0aa7-4818-aada-4c32f5cfe831;IngestionEndpoint=https://polandcentral-0.in.applicationinsights.azure.com/;LiveEndpoint=https://polandcentral.livediagnostics.monitor.azure.com/;ApplicationId=cac3a7dc-c20b-4b4b-aadf-70e755a4ec39"

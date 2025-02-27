@@ -54,5 +54,6 @@ jobs:
              src/ToDo/deployment.yaml
              src/ToDo/service.yaml
              src/ToDo/rbac.yaml
+             src/TodoEventsProcessor/deployment.yaml
           images: '${{ secrets.REGISTRY }}.azurecr.io/todo-app/todo:${{ github.sha }}'
           pull-images: false
