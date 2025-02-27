@@ -23,7 +23,7 @@ jobs:
           tenant: ${{ secrets.TENANT }}
           registry: ${{ secrets.REGISTRY }}
           repository: todo-app
-          image: todo-app
+          image: todo
           folder: src  # Folder zawierający Dockerfile
           tag: ${{ github.sha }}
           
