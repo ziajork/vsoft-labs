@@ -6,7 +6,8 @@ metadata:
 spec:
   ingressClassName: webapprouting.kubernetes.azure.com
   rules:
-  - http:
+  - host: todo.team0.vsoft.patoarchitekci.io
+    http:
       paths:
       - backend:
           service:

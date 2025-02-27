@@ -19,7 +19,7 @@ spec:
       serviceAccountName: todo
       containers:
         - name: todo
-          image: vsofttodo00.azurecr.io/todo:v2
+          image: ${REGISTRY_NAME}.azurecr.io/todo-app:${IMAGE_TAG}
           ports:
             - containerPort: 8080
           env:
