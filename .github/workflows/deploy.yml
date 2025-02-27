@@ -51,7 +51,7 @@ jobs:
         with:
           namespace: 'default'
           manifests: |
-             kubernetes/manifests/deployment.yaml
-             kubernetes/manifests/service.yaml
+             src/ToDo/deployment.yaml
+             src/ToDo/service.yaml
           images: '${{ secrets.REGISTRY }}.azurecr.io/todo-app:${{ github.sha }}'
           pull-images: false

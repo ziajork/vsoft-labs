@@ -16,3 +16,23 @@ metadata:
   annotations:
     azure.workload.identity/client-id: "65fb8741-db03-4e22-9601-30a6c514b866"
   name: "todo"
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: todo
+  namespace: default
+spec:
+  ingressClassName: webapprouting.kubernetes.azure.com
+  rules:
+  - host: todo.team0.vsoft.patoarchitekci.io
+    http:
+      paths:
+      - backend:
+          service:
+            name: todo
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
