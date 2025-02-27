@@ -21,7 +21,7 @@ jobs:
           service_principal: ${{ secrets.SERVICE_PRINCIPAL }}
           service_principal_password: ${{ secrets.SERVICE_PRINCIPAL_PASSWORD }}
           tenant: ${{ secrets.TENANT }}
-          registry: ${{ secrets.REGISTRY }}
+          registry: ${{ secrets.REGISTRY }}.azurecr.io
           repository: todo-app
           image: todo
           folder: src/ToDo  # Folder zawierający Dockerfile
