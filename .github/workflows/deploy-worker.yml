@@ -1,4 +1,4 @@
-name: build_deploy_aks
+name: build_deploy_worker_aks
 on:
   workflow_dispatch:  # Ręczne uruchamianie workflow
   push:
