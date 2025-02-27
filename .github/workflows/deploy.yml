@@ -24,7 +24,7 @@ jobs:
           registry: ${{ secrets.REGISTRY }}
           repository: todo-app
           image: todo
-          folder: src  # Folder zawierający Dockerfile
+          folder: src/ToDo  # Folder zawierający Dockerfile
           tag: ${{ github.sha }}
           
       - name: Azure login
