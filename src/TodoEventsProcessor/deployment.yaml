@@ -15,7 +15,7 @@ spec:
       serviceAccountName: todo-app-sa  # Używamy istniejącego Service Account
       containers:
       - name: todo-events-processor
-        image: vsofttodo00.azurecr.io/todo-events-processor:latest
+        image: vsofttodo00.azurecr.io/todo-worker-app/todo-worker:abc
         env:
         - name: KeyVaultName
           value: "kv-vsoft-team00-todo"

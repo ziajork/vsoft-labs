@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - "src/ToDo/"  # Uruchom tylko gdy zmiany dotyczą kodu aplikacji
+      - "src/TodoEventsProcessor/"  # Uruchom tylko gdy zmiany dotyczą kodu aplikacji
 
 jobs:
   build:
@@ -22,9 +22,9 @@ jobs:
           service_principal_password: ${{ secrets.SERVICE_PRINCIPAL_PASSWORD }}
           tenant: ${{ secrets.TENANT }}
           registry: ${{ secrets.REGISTRY }}.azurecr.io
-          repository: todo-app
-          image: todo
-          folder: src/ToDo  # Folder zawierający Dockerfile
+          repository: todo-worker-app
+          image: todo-worker
+          folder: src/TodoEventsProcessor  # Folder zawierający Dockerfile
           tag: ${{ github.sha }}
           branch: main
           
@@ -51,8 +51,6 @@ jobs:
         with:
           namespace: 'default'
           manifests: |
-             src/ToDo/deployment.yaml
-             src/ToDo/service.yaml
-             src/ToDo/rbac.yaml
-          images: '${{ secrets.REGISTRY }}.azurecr.io/todo-app/todo:${{ github.sha }}'
+             src/TodoEventsProcessor/deployment.yaml
+          images: '${{ secrets.REGISTRY }}.azurecr.io/todo-worker-app/todo-worker:${{ github.sha }}'
           pull-images: false
